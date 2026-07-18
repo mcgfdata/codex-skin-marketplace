@@ -10,6 +10,7 @@ DEFER_LABEL="com.mcgfdata.codex-skin.deferred-start"
 DEFER_SCRIPT="$STATE_ROOT/deferred-start.sh"
 DEFER_LOG="$STATE_ROOT/deferred-start.log"
 DEFER_PLIST="$HOME/Library/LaunchAgents/$DEFER_LABEL.plist"
+DEFER_COMPLETED_PLIST="$STATE_ROOT/deferred-start.completed.plist"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -45,7 +46,8 @@ THEME="$THEME"
 PORT="$PORT"
 LOG="$DEFER_LOG"
 PLIST="$DEFER_PLIST"
-COMPLETED_PLIST="$STATE_ROOT/deferred-start.completed.plist"
+COMPLETED_PLIST="$DEFER_COMPLETED_PLIST"
+LABEL="$DEFER_LABEL"
 
 main_pids() {
   /bin/ps -axo pid=,command= | /usr/bin/awk '/\\/ChatGPT\\.app\\/Contents\\/MacOS\\/ChatGPT([[:space:]]|$)/ { print \$1 }'
@@ -59,11 +61,9 @@ main_pids() {
   "\$SCRIPT_DIR/install-skin.sh" --theme "\$THEME" --port "\$PORT" --no-shortcuts
   "\$SCRIPT_DIR/start-skin.sh" --theme "\$THEME" --port "\$PORT"
   printf '%s codex-skin theme %s started\\n' "\$(/bin/date -u '+%Y-%m-%dT%H:%M:%SZ')" "\$THEME"
-  (
-    /bin/sleep 1
-    /bin/launchctl bootout "gui/\$(/usr/bin/id -u)" "\$PLIST" 2>/dev/null || true
-    /bin/mv "\$PLIST" "\$COMPLETED_PLIST" 2>/dev/null || true
-  ) >/dev/null 2>&1 &
+  /bin/mv "\$PLIST" "\$COMPLETED_PLIST" 2>/dev/null || true
+  /bin/launchctl bootout "gui/\$(/usr/bin/id -u)/\$LABEL" 2>/dev/null || true
+  /bin/launchctl bootout "gui/\$(/usr/bin/id -u)" "\$COMPLETED_PLIST" 2>/dev/null || true
 } >>"\$LOG" 2>&1
 EOF
   chmod 700 "$DEFER_SCRIPT"
@@ -89,6 +89,7 @@ EOF
 </dict>
 </plist>
 EOF
+  launchctl bootout "gui/$(id -u)/$DEFER_LABEL" 2>/dev/null || true
   launchctl bootout "gui/$(id -u)" "$DEFER_PLIST" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$DEFER_PLIST"
 }

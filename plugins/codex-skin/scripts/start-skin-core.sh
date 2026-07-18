@@ -55,6 +55,23 @@ find_app_bundle() {
   return 1
 }
 
+launch_codex_with_cdp() {
+  local app_bundle="$1"
+  local port="$2"
+  shift 2
+  local args=("--remote-debugging-address=127.0.0.1" "--remote-debugging-port=$port" "$@")
+
+  : >"$APP_LOG"
+  /usr/bin/open -na "$app_bundle" --args "${args[@]}" >>"$APP_LOG" 2>&1 || true
+
+  # Some macOS/Electron builds can fail to pass args through LaunchServices.
+  # Keep the direct binary path as a last resort for interactive starts.
+  sleep 0.5
+  if ! main_pids >/dev/null || [[ -z "$(main_pids)" ]]; then
+    nohup "$app_bundle/Contents/MacOS/ChatGPT" "${args[@]}" >>"$APP_LOG" 2>&1 &
+  fi
+}
+
 main_pids() {
   ps -axo pid=,command= | awk '/\/ChatGPT\.app\/Contents\/MacOS\/ChatGPT([[:space:]]|$)/ { print $1 }'
 }
@@ -88,13 +105,12 @@ if ! test_codex_debug_port; then
     exit 1
   fi
   APP_BUNDLE="$(find_app_bundle)" || { echo "Codex app with bundle id com.openai.codex was not found." >&2; exit 1; }
-  EXE="$APP_BUNDLE/Contents/MacOS/ChatGPT"
   ARGS=("--remote-debugging-address=127.0.0.1" "--remote-debugging-port=$PORT")
   if [[ -n "$PROFILE_PATH" ]]; then
     mkdir -p "$PROFILE_PATH"
     ARGS+=("--user-data-dir=$PROFILE_PATH")
   fi
-  nohup "$EXE" "${ARGS[@]}" >"$APP_LOG" 2>&1 &
+  launch_codex_with_cdp "$APP_BUNDLE" "$PORT" "${ARGS[@]:2}"
 fi
 
 READY=0

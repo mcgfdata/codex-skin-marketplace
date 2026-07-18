@@ -1,6 +1,6 @@
 {
   "name": "codex-skin",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "A Codex Skill and cross-platform runtime for creating, applying, exporting, verifying, and restoring custom Codex desktop skins.",
   "type": "module",
   "author": "终端极客 <baixin.dev@gmail.com>",
