@@ -303,7 +303,14 @@ async function runWatch(options) {
   const payload = await loadPayload(options.theme);
   const sessions = new Map();
   let stopping = false;
-  const stop = () => { stopping = true; };
+  let forcedExitTimer;
+  const stop = () => {
+    if (stopping) return;
+    stopping = true;
+    for (const session of sessions.values()) session.close();
+    sessions.clear();
+    forcedExitTimer = setTimeout(() => process.exit(0), 1500);
+  };
   process.on("SIGINT", stop);
   process.on("SIGTERM", stop);
 
@@ -345,6 +352,7 @@ async function runWatch(options) {
   }
 
   for (const session of sessions.values()) session.close();
+  if (forcedExitTimer) clearTimeout(forcedExitTimer);
 }
 
 const options = parseArgs(process.argv.slice(2));

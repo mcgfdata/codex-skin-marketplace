@@ -35,7 +35,11 @@ test_codex_debug_port() {
 }
 
 write_deferred_start() {
+  local original_pids
+  original_pids="$(main_pids | tr '\n' ' ' | sed 's/[[:space:]]*$//')"
   mkdir -p "$STATE_ROOT" "$HOME/Library/LaunchAgents"
+  launchctl bootout "gui/$(id -u)/$DEFER_LABEL" 2>/dev/null || true
+  launchctl bootout "gui/$(id -u)" "$DEFER_PLIST" 2>/dev/null || true
   cat > "$DEFER_SCRIPT" <<EOF
 #!/bin/bash
 set -euo pipefail
@@ -48,22 +52,37 @@ LOG="$DEFER_LOG"
 PLIST="$DEFER_PLIST"
 COMPLETED_PLIST="$DEFER_COMPLETED_PLIST"
 LABEL="$DEFER_LABEL"
+ORIGINAL_PIDS="$original_pids"
 
-main_pids() {
-  /bin/ps -axo pid=,command= | /usr/bin/awk '/\\/ChatGPT\\.app\\/Contents\\/MacOS\\/ChatGPT([[:space:]]|$)/ { print \$1 }'
+original_codex_is_running() {
+  local pid command
+  for pid in \$ORIGINAL_PIDS; do
+    command="\$(/bin/ps -p "\$pid" -o command= 2>/dev/null || true)"
+    case "\$command" in
+      *"/ChatGPT.app/Contents/MacOS/ChatGPT"*) return 0 ;;
+    esac
+  done
+  return 1
 }
 
+cleanup_deferred_start() {
+  /bin/mv "\$PLIST" "\$COMPLETED_PLIST" 2>/dev/null || true
+  (
+    /bin/sleep 1
+    /bin/launchctl bootout "gui/\$(/usr/bin/id -u)/\$LABEL" 2>/dev/null || true
+  ) >/dev/null 2>&1 &
+}
+
+trap cleanup_deferred_start EXIT
+
 {
-  printf '%s waiting for Codex to exit before starting codex-skin theme %s\\n' "\$(/bin/date -u '+%Y-%m-%dT%H:%M:%SZ')" "\$THEME"
-  while [ -n "\$(main_pids)" ]; do
-    /bin/sleep 2
+  printf '%s waiting for original Codex PID(s) [%s] to exit before starting theme %s\\n' "\$(/bin/date -u '+%Y-%m-%dT%H:%M:%SZ')" "\$ORIGINAL_PIDS" "\$THEME"
+  while original_codex_is_running; do
+    /bin/sleep 0.25
   done
   "\$SCRIPT_DIR/install-skin.sh" --theme "\$THEME" --port "\$PORT" --no-shortcuts
-  "\$SCRIPT_DIR/start-skin.sh" --theme "\$THEME" --port "\$PORT"
+  "\$SCRIPT_DIR/start-skin.sh" --theme "\$THEME" --port "\$PORT" --restart-existing
   printf '%s codex-skin theme %s started\\n' "\$(/bin/date -u '+%Y-%m-%dT%H:%M:%SZ')" "\$THEME"
-  /bin/mv "\$PLIST" "\$COMPLETED_PLIST" 2>/dev/null || true
-  /bin/launchctl bootout "gui/\$(/usr/bin/id -u)/\$LABEL" 2>/dev/null || true
-  /bin/launchctl bootout "gui/\$(/usr/bin/id -u)" "\$COMPLETED_PLIST" 2>/dev/null || true
 } >>"\$LOG" 2>&1
 EOF
   chmod 700 "$DEFER_SCRIPT"
@@ -89,8 +108,6 @@ EOF
 </dict>
 </plist>
 EOF
-  launchctl bootout "gui/$(id -u)/$DEFER_LABEL" 2>/dev/null || true
-  launchctl bootout "gui/$(id -u)" "$DEFER_PLIST" 2>/dev/null || true
   launchctl bootstrap "gui/$(id -u)" "$DEFER_PLIST"
 }
 

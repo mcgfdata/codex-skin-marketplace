@@ -9,7 +9,7 @@ import { buildThemePackage } from "./theme-package.mjs";
 const theme = await loadTheme();
 assert.equal(DEFAULT_THEME, "salary-cat");
 assert.equal(theme.id, "salary-cat");
-assert.equal(theme.version, "1.0.0");
+assert.equal(theme.version, "1.0.1");
 
 const themeIds = (await fs.readdir(path.join(skillRoot, "themes")))
   .filter((entry) => entry.endsWith(".json"))
@@ -118,10 +118,30 @@ assert.match(serialized, /"format": "codex-theme"/);
 
 const temp = await fs.mkdtemp(path.join(os.tmpdir(), "codex-skin-"));
 await fs.rm(temp, { recursive: true, force: true });
+
+const [setupScript, startScript, restoreScript, injectorScript] = await Promise.all([
+  fs.readFile(path.join(skillRoot, "scripts", "setup-skin.sh"), "utf8"),
+  fs.readFile(path.join(skillRoot, "scripts", "start-skin-core.sh"), "utf8"),
+  fs.readFile(path.join(skillRoot, "scripts", "restore-skin-core.sh"), "utf8"),
+  fs.readFile(path.join(skillRoot, "scripts", "injector.mjs"), "utf8"),
+]);
+assert.match(setupScript, /ORIGINAL_PIDS=/);
+assert.match(setupScript, /original_codex_is_running/);
+assert.match(setupScript, /start-skin\.sh" --theme "\\\$THEME" --port "\\\$PORT" --restart-existing/);
+assert.match(setupScript, /trap cleanup_deferred_start EXIT/);
+assert.doesNotMatch(setupScript, /while \[ -n "\\\$\(main_pids\)" \]/);
+assert.match(startScript, /LaunchServices can route the request to an ordinary single-instance/);
+assert.match(startScript, /stop_running_codex/);
+assert.match(startScript, /seq 1 170/);
+assert.match(startScript, /kill -KILL "\$pid"/);
+assert.match(restoreScript, /cancel_deferred_start/);
+assert.match(restoreScript, /Codex Skin - Restart\.command/);
+assert.match(restoreScript, /kill -KILL "\$pid"/);
+assert.match(injectorScript, /forcedExitTimer = setTimeout\(\(\) => process\.exit\(0\), 1500\)/);
 console.log(JSON.stringify({
   pass: true,
   theme: `${theme.id}@${theme.version}`,
   themes: themeIds,
   payloadBytes: Buffer.byteLength(payload),
-  checks: ["active Skill themes", "archived generated themes", "theme schema", "mac base colors", "appearance key deduplication", "config restore", "payload syntax", "portable theme export"],
+  checks: ["active Skill themes", "archived generated themes", "theme schema", "mac base colors", "appearance key deduplication", "config restore", "payload syntax", "portable theme export", "mac deferred restart", "mac deferred cleanup"],
 }, null, 2));

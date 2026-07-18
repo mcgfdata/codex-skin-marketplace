@@ -55,6 +55,26 @@ find_app_bundle() {
   return 1
 }
 
+main_pids() {
+  ps -axo pid=,command= | awk '/\/ChatGPT\.app\/Contents\/MacOS\/ChatGPT([[:space:]]|$)/ { print $1 }'
+}
+
+stop_running_codex() {
+  local pid
+  osascript -e 'tell application id "com.openai.codex" to quit' >/dev/null 2>&1 || true
+  for _ in $(seq 1 60); do
+    [[ -z "$(main_pids)" ]] && return 0
+    sleep 0.2
+  done
+  while IFS= read -r pid; do
+    [[ -n "$pid" ]] && kill "$pid" 2>/dev/null || true
+  done < <(main_pids)
+  for _ in $(seq 1 20); do
+    [[ -z "$(main_pids)" ]] && return 0
+    sleep 0.1
+  done
+}
+
 launch_codex_with_cdp() {
   local app_bundle="$1"
   local port="$2"
@@ -64,16 +84,17 @@ launch_codex_with_cdp() {
   : >"$APP_LOG"
   /usr/bin/open -na "$app_bundle" --args "${args[@]}" >>"$APP_LOG" 2>&1 || true
 
-  # Some macOS/Electron builds can fail to pass args through LaunchServices.
-  # Keep the direct binary path as a last resort for interactive starts.
-  sleep 0.5
-  if ! main_pids >/dev/null || [[ -z "$(main_pids)" ]]; then
-    nohup "$app_bundle/Contents/MacOS/ChatGPT" "${args[@]}" >>"$APP_LOG" 2>&1 &
-  fi
-}
+  for _ in $(seq 1 16); do
+    test_codex_debug_port && return 0
+    sleep 0.25
+  done
 
-main_pids() {
-  ps -axo pid=,command= | awk '/\/ChatGPT\.app\/Contents\/MacOS\/ChatGPT([[:space:]]|$)/ { print $1 }'
+  # LaunchServices can route the request to an ordinary single-instance
+  # process. Remove that process before the direct executable fallback.
+  if [[ "$RESTART_EXISTING" -eq 1 && -z "$PROFILE_PATH" && -n "$(main_pids)" ]]; then
+    stop_running_codex
+  fi
+  nohup "$app_bundle/Contents/MacOS/ChatGPT" "${args[@]}" >>"$APP_LOG" 2>&1 &
 }
 
 safe_stop_injector() {
@@ -82,6 +103,14 @@ safe_stop_injector() {
   command="$(ps -p "$pid" -o command= 2>/dev/null || true)"
   if [[ "$command" == *"$INJECTOR"* && "$command" == *"--watch"* ]]; then
     kill "$pid" 2>/dev/null || true
+    for _ in $(seq 1 20); do
+      kill -0 "$pid" 2>/dev/null || return 0
+      sleep 0.1
+    done
+    command="$(ps -p "$pid" -o command= 2>/dev/null || true)"
+    if [[ "$command" == *"$INJECTOR"* && "$command" == *"--watch"* ]]; then
+      kill -KILL "$pid" 2>/dev/null || true
+    fi
   fi
 }
 
@@ -91,12 +120,7 @@ if ! test_codex_debug_port && [[ -z "$PROFILE_PATH" ]] && [[ -n "$(main_pids)" ]
     echo "Close Codex or rerun with --restart-existing." >&2
     exit 1
   fi
-  osascript -e 'tell application id "com.openai.codex" to quit' >/dev/null 2>&1 || true
-  for _ in $(seq 1 40); do [[ -z "$(main_pids)" ]] && break; sleep 0.25; done
-  while IFS= read -r pid; do
-    [[ -n "$pid" ]] && kill "$pid" 2>/dev/null || true
-  done < <(main_pids)
-  sleep 0.6
+  stop_running_codex
 fi
 
 if ! test_codex_debug_port; then
@@ -140,7 +164,9 @@ fs.writeFileSync(statePath, JSON.stringify({
 NODE
 
 VERIFIED=0
-for _ in $(seq 1 45); do
+# A resumed task can keep the renderer busy well after CDP starts listening.
+# Allow the native shell up to two minutes to expose the controls we verify.
+for _ in $(seq 1 170); do
   sleep 0.7
   if node "$INJECTOR" --verify --port "$PORT" --theme "$THEME" --timeout-ms 3000 >/dev/null 2>&1; then
     VERIFIED=1

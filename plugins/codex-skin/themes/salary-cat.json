@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "salary-cat",
   "displayName": "Codex 月薪喵",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "css": "salary-cat.css",
   "art": "../assets/imported/salary-cat/salary-cat-hero.gif",
   "copy": {
