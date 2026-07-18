@@ -32,7 +32,8 @@
 
 html.codex-skin[data-codex-skin-theme="salary-cat"] body {
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--skin-panel) 94%, transparent) 0%, color-mix(in srgb, var(--skin-panel) 70%, transparent) 42%, color-mix(in srgb, var(--skin-bg) 22%, transparent) 100%),
+    radial-gradient(circle at 76% 12%, rgba(255, 219, 132, .34), transparent 28%),
+    linear-gradient(90deg, color-mix(in srgb, var(--skin-panel) 90%, transparent) 0%, color-mix(in srgb, var(--skin-panel) 62%, transparent) 42%, color-mix(in srgb, var(--skin-bg) 8%, transparent) 100%),
     var(--dream-art) !important;
   background-size: cover !important;
   background-position: center right !important;
@@ -42,15 +43,17 @@ html.codex-skin[data-codex-skin-theme="salary-cat"] body {
 }
 
 html.codex-skin[data-codex-skin-theme="salary-cat"] aside.app-shell-left-panel {
-  background: color-mix(in srgb, var(--skin-panel) 92%, transparent) !important;
+  background: color-mix(in srgb, var(--skin-panel) 78%, transparent) !important;
   border-right: 1px solid var(--skin-line) !important;
   color: var(--skin-text) !important;
-  backdrop-filter: blur(18px) saturate(1.15) !important;
+  backdrop-filter: blur(12px) saturate(1.06) !important;
 }
 
 html.codex-skin[data-codex-skin-theme="salary-cat"] main.main-surface {
+  position: relative !important;
+  isolation: isolate;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--skin-panel) 88%, transparent), color-mix(in srgb, var(--skin-bg) 36%, transparent)),
+    linear-gradient(90deg, color-mix(in srgb, var(--skin-panel) 76%, transparent), color-mix(in srgb, var(--skin-bg) 20%, transparent)),
     var(--dream-art) !important;
   background-size: cover !important;
   background-position: center right !important;
@@ -58,14 +61,35 @@ html.codex-skin[data-codex-skin-theme="salary-cat"] main.main-surface {
   overflow: hidden !important;
 }
 
+html.codex-skin[data-codex-skin-theme="salary-cat"] main.main-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(255, 250, 240, .76) 0%, rgba(255, 244, 223, .34) 48%, rgba(255, 244, 223, .06) 100%),
+    var(--dream-art);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center right;
+  opacity: .9;
+}
+
 html.codex-skin[data-codex-skin-theme="salary-cat"] main.main-surface > header.app-header-tint,
 html.codex-skin[data-codex-skin-theme="salary-cat"] .composer-surface-chrome,
 html.codex-skin[data-codex-skin-theme="salary-cat"] textarea,
 html.codex-skin[data-codex-skin-theme="salary-cat"] [contenteditable="true"] {
-  background: color-mix(in srgb, var(--skin-panel) 88%, transparent) !important;
+  background: color-mix(in srgb, var(--skin-panel) 76%, transparent) !important;
   border-color: var(--skin-line) !important;
   color: var(--skin-text) !important;
-  backdrop-filter: blur(16px) saturate(1.1) !important;
+  backdrop-filter: blur(10px) saturate(1.05) !important;
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] [class~="bg-token-main-surface-primary"],
+html.codex-skin[data-codex-skin-theme="salary-cat"] [class~="from-token-main-surface-primary"],
+html.codex-skin[data-codex-skin-theme="salary-cat"] .thread-scroll-container .bg-gradient-to-t.from-token-main-surface-primary {
+  background: transparent !important;
 }
 
 html.codex-skin[data-codex-skin-theme="salary-cat"] button:hover,
@@ -78,6 +102,44 @@ html.codex-skin[data-codex-skin-theme="salary-cat"] [aria-current="page"] {
   z-index: 31;
   pointer-events: none;
   overflow: hidden;
+}
+
+#codex-skin-art-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#codex-skin-art-layer::before {
+  content: "";
+  position: absolute;
+  right: max(20px, 3vw);
+  bottom: max(80px, 8vh);
+  width: min(50vw, 720px);
+  aspect-ratio: 1264 / 553;
+  background-image: var(--dream-art);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: .62;
+  filter: drop-shadow(0 18px 40px rgba(111, 71, 28, .22));
+}
+
+#codex-skin-art-layer::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(48vw, 660px);
+  height: min(48vh, 420px);
+  background: radial-gradient(circle at 58% 54%, rgba(255, 236, 189, .72), rgba(255, 244, 223, 0) 64%);
+  transform: translate(12%, 18%);
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"]:has(.composer-surface-chrome:focus-within) #codex-skin-art-layer::before {
+  opacity: .42;
 }
 
 #codex-skin-chrome .dream-brand,
@@ -109,3 +171,21 @@ html.codex-skin[data-codex-skin-theme="salary-cat"] [aria-current="page"] {
 #codex-skin-chrome .dream-sparkles,
 #codex-skin-chrome .dream-polaroid,
 #codex-skin-chrome .dream-ribbon { display: none; }
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] body > *:not(#codex-skin-art-layer):not(#codex-skin-chrome) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  #codex-skin-art-layer::before {
+    right: 12px;
+    bottom: 86px;
+    width: min(82vw, 520px);
+    opacity: .46;
+  }
+
+  #codex-skin-art-layer::after {
+    width: 82vw;
+  }
+}

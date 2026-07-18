@@ -2,6 +2,7 @@
   const STATE_KEY = "__CODEX_SKIN_STATE__";
   const STYLE_ID = "codex-skin-style";
   const CHROME_ID = "codex-skin-chrome";
+  const ART_LAYER_ID = "codex-skin-art-layer";
   window.__CODEX_SKIN_DISABLED__ = false;
 
   const previous = window[STATE_KEY];
@@ -66,6 +67,18 @@
 
     if (!shellMain || !document.body) return;
     shellMain.classList.toggle("dream-home-shell", Boolean(home));
+    let artLayer = document.getElementById(ART_LAYER_ID);
+    if (!artLayer || artLayer.parentElement !== document.body) {
+      artLayer?.remove();
+      artLayer = document.createElement("div");
+      artLayer.id = ART_LAYER_ID;
+      artLayer.setAttribute("aria-hidden", "true");
+      document.body.appendChild(artLayer);
+    }
+    artLayer.style.setProperty("--dream-art", `url("${artUrl}")`);
+    artLayer.dataset.theme = theme.id;
+    artLayer.classList.toggle("dream-home-shell", Boolean(home));
+
     let chrome = document.getElementById(CHROME_ID);
     if (!chrome || chrome.parentElement !== document.body || !chrome.querySelector(".dream-brand-title")) {
       chrome?.remove();
@@ -100,6 +113,7 @@
     document.querySelectorAll(".dream-home").forEach((node) => node.classList.remove("dream-home"));
     document.querySelectorAll(".dream-home-shell").forEach((node) => node.classList.remove("dream-home-shell"));
     document.getElementById(STYLE_ID)?.remove();
+    document.getElementById(ART_LAYER_ID)?.remove();
     document.getElementById(CHROME_ID)?.remove();
     const state = window[STATE_KEY];
     state?.observer?.disconnect();

@@ -204,6 +204,10 @@ async function verifySession(session, expectedTheme = null) {
       stylePresent: Boolean(document.getElementById('codex-skin-style')),
       chromePresent: Boolean(document.getElementById('codex-skin-chrome')),
       chromePointerEvents: getComputedStyle(document.getElementById('codex-skin-chrome') || document.body).pointerEvents,
+      artLayerPresent: Boolean(document.getElementById('codex-skin-art-layer')),
+      artLayerPointerEvents: getComputedStyle(document.getElementById('codex-skin-art-layer') || document.body).pointerEvents,
+      artLayerTheme: document.getElementById('codex-skin-art-layer')?.dataset.theme ?? null,
+      artVariablePresent: getComputedStyle(document.documentElement).getPropertyValue('--dream-art').includes('blob:'),
       nativeHomePresent: Boolean(nativeHome),
       homePresent: Boolean(home),
       suggestionsPresent: Boolean(suggestions),
@@ -224,7 +228,9 @@ async function verifySession(session, expectedTheme = null) {
       result.suggestionsPresent && result.cards.length >= 2 && result.cards.length <= 4 &&
       result.cards.every(visible));
     result.pass = result.installed && result.stylePresent && result.chromePresent &&
-      result.chromePointerEvents === 'none' && visible(result.composer) && visible(result.sidebar) &&
+      result.chromePointerEvents === 'none' && result.artLayerPresent &&
+      result.artLayerPointerEvents === 'none' && result.artLayerTheme === result.themeId &&
+      result.artVariablePresent && visible(result.composer) && visible(result.sidebar) &&
       !result.documentOverflow.x && themeMatches && homePass;
     return result;
   })()`);

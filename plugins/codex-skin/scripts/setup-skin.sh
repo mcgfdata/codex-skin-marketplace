@@ -119,8 +119,11 @@ if test_codex_debug_port; then
   echo "Codex Skin theme '$THEME' is active."
 elif [[ -n "$(main_pids)" ]]; then
   write_deferred_start
-  echo "Codex is currently running without the skin injector."
-  echo "Quit Codex with Cmd+Q once; Codex Skin will restart it automatically with theme '$THEME'."
+  osascript -e 'display notification "请现在退出 Codex（Cmd+Q）。重新打开后会看到月薪喵皮肤。" with title "Codex Skin 已安装"' >/dev/null 2>&1 || true
+  echo
+  echo "Codex Skin has been installed, but the current Codex window was opened without the skin injector."
+  echo "请现在退出 Codex（Cmd+Q）。退出后 Codex Skin 会自动重新启动 Codex。"
+  echo "重启完成后应能看到 '$THEME' / 月薪喵 的图片皮肤。"
   echo "Deferred log: $DEFER_LOG"
 else
   "$SCRIPT_DIR/start-skin.sh" --theme "$THEME" --port "$PORT"
