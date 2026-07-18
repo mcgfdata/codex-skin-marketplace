@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "solarized-light",
+  "displayName": "Solarized Light",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Solarized Light",
+    "brandSubtitle": "暖色低眩光浅色主题",
+    "signature": "warm light",
+    "tagline": "浅色但不刺眼，适合白天写作和阅读。",
+    "projectPrefix": "Solarized · ",
+    "projectLabel": "选择项目",
+    "ribbon": "S"
+  },
+  "baseTheme": {
+    "mode": "light",
+    "codeTheme": "codex",
+    "accent": "#268BD2",
+    "contrast": 70,
+    "ink": "#073642",
+    "surface": "#FDF6E3",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#859900",
+      "diffRemoved": "#DC322F",
+      "skill": "#268BD2"
+    }
+  }
+}

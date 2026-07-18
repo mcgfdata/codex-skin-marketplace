@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Nord Aurora Codex skin preview">
+  <rect width="640" height="360" fill="#2e3440"/>
+  <rect x="22" y="22" width="132" height="316" rx="10" fill="#242933" stroke="#88c0d0" stroke-opacity=".35"/>
+  <rect x="174" y="22" width="444" height="316" rx="12" fill="#242933" stroke="#88c0d0" stroke-opacity=".35"/>
+  <path d="M380 60c54 54 98 34 152 72 24 17 38 41 46 66" fill="none" stroke="#a3be8c" stroke-width="18" stroke-linecap="round" opacity=".24"/>
+  <text x="190" y="124" fill="#eceff4" font-family="Arial, sans-serif" font-size="28" font-weight="700">Nord Aurora</text>
+  <text x="190" y="154" fill="#d8dee9" font-family="Arial, sans-serif" font-size="15">冷静蓝灰主题</text>
+  <rect x="190" y="192" width="390" height="74" rx="10" fill="#3b4252"/>
+  <rect x="210" y="216" width="170" height="10" rx="5" fill="#88c0d0"/>
+  <rect x="210" y="240" width="250" height="9" rx="4" fill="#a3be8c" opacity=".75"/>
+  <rect x="42" y="54" width="82" height="10" rx="5" fill="#88c0d0"/>
+  <rect x="42" y="96" width="94" height="10" rx="5" fill="#eceff4" opacity=".72"/>
+  <rect x="42" y="124" width="62" height="10" rx="5" fill="#eceff4" opacity=".45"/>
+</svg>

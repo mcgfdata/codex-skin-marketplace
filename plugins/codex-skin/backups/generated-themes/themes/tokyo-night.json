@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "tokyo-night",
+  "displayName": "Tokyo Night",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Tokyo Night",
+    "brandSubtitle": "蓝紫夜间主题",
+    "signature": "night coding",
+    "tagline": "深色底、蓝紫强调，适合夜间专注开发。",
+    "projectPrefix": "Tokyo · ",
+    "projectLabel": "选择项目",
+    "ribbon": "T"
+  },
+  "baseTheme": {
+    "mode": "dark",
+    "codeTheme": "codex",
+    "accent": "#7AA2F7",
+    "contrast": 80,
+    "ink": "#C0CAF5",
+    "surface": "#1A1B26",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#9ECE6A",
+      "diffRemoved": "#F7768E",
+      "skill": "#7AA2F7"
+    }
+  }
+}

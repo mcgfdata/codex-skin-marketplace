@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="GitHub Light Codex skin preview">
+  <rect width="640" height="360" fill="#f6f8fa"/>
+  <rect x="22" y="22" width="132" height="316" rx="10" fill="#ffffff" stroke="#0969da" stroke-opacity=".22"/>
+  <rect x="174" y="22" width="444" height="316" rx="12" fill="#ffffff" stroke="#0969da" stroke-opacity=".22"/>
+  <rect x="190" y="42" width="410" height="34" rx="7" fill="#eaeef2"/>
+  <text x="190" y="124" fill="#24292f" font-family="Arial, sans-serif" font-size="28" font-weight="700">GitHub Light</text>
+  <text x="190" y="154" fill="#57606a" font-family="Arial, sans-serif" font-size="15">清爽浅色工程主题</text>
+  <rect x="190" y="192" width="390" height="74" rx="10" fill="#eaeef2"/>
+  <rect x="210" y="216" width="170" height="10" rx="5" fill="#0969da"/>
+  <rect x="210" y="240" width="250" height="9" rx="4" fill="#1a7f37" opacity=".75"/>
+  <rect x="42" y="54" width="82" height="10" rx="5" fill="#0969da"/>
+  <rect x="42" y="96" width="94" height="10" rx="5" fill="#24292f" opacity=".72"/>
+  <rect x="42" y="124" width="62" height="10" rx="5" fill="#24292f" opacity=".45"/>
+</svg>

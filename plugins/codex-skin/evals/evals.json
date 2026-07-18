@@ -1,0 +1,104 @@
+{
+  "skill_name": "codex-skin",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我设置codex皮肤 mcgfdata/codex-skin ，作者是 终端极客",
+      "expected_output": "Treats the request as a codex-skin install from mcgfdata/codex-skin and uses the default salary-cat 月薪喵 theme.",
+      "files": [],
+      "expectations": [
+        "Invokes codex-skin rather than codedrobe-codex-theme or Codex-Dream-Skin",
+        "Uses setup-skin.* with theme salary-cat when no other theme is requested",
+        "Starts the injector immediately when possible or registers the macOS deferred restart when Codex is already running"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "帮我安装codex-skin，作者是：终端极客。我什么主题都不指定，就用默认的。",
+      "expected_output": "Treats the request as a codex-skin install and uses the default salary-cat 月薪喵 theme.",
+      "files": [],
+      "expectations": [
+        "Invokes codex-skin rather than codedrobe-codex-theme or Codex-Dream-Skin",
+        "Uses setup-skin.* with theme salary-cat when no other theme is requested",
+        "Starts the injector immediately when possible or registers the macOS deferred restart when Codex is already running"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "安装月薪喵 Codex 皮肤，能一键装好就行。",
+      "expected_output": "Maps 月薪喵 to salary-cat and runs the one-command setup path for the user's platform.",
+      "files": [],
+      "expectations": [
+        "Recognizes 月薪喵 as the salary-cat theme",
+        "Uses setup-skin.sh on macOS or setup-skin.ps1 on Windows and does not stop at base color configuration",
+        "Does not ask the user to manually choose a theme"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "我看到 GitHub 上 mcgfdata/codex-skin，帮我装那个猫主题。",
+      "expected_output": "Recognizes mcgfdata/codex-skin and 猫主题 as the codex-skin default salary-cat install.",
+      "files": [],
+      "expectations": [
+        "Uses the codex-skin Skill or plugin metadata",
+        "Selects salary-cat by default",
+        "Does not route to unrelated skin repositories"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "在我的 Mac 上给 Codex 安装现有 dream 皮肤，启动后截图验证，但如果 Codex 已打开不要擅自重启。",
+      "expected_output": "Uses the macOS scripts, preserves the signed app, asks before restart, and verifies the selected theme with a screenshot.",
+      "files": [],
+      "expectations": [
+        "Uses install-skin.sh, start-skin.sh, and verify-skin.sh with theme dream",
+        "Does not modify ChatGPT.app or restart an open app without authorization",
+        "Treats screenshot and strict runtime verification as required"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "参考我给的一张海边照片，帮我做一个低饱和蓝绿色的 Codex 皮肤，名字叫 ocean-calm，文案不要明星元素。",
+      "expected_output": "Scaffolds an ocean-calm theme, uses local or generated artwork with consent, customizes manifest and CSS, increments version, and verifies visually.",
+      "files": [],
+      "expectations": [
+        "Creates a separate ocean-calm manifest and CSS instead of overwriting Dream",
+        "Uses safe local artwork handling and removes Fiona-specific copy",
+        "Preserves native controls and performs screenshot verification"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Codex 更新后皮肤只有侧边栏变粉了，首页横幅没了，帮我修复并确保以后不会假通过。",
+      "expected_output": "Diagnoses selector drift, updates the narrow compatibility selectors, and requires native-home hero/cards to pass verification.",
+      "files": [],
+      "expectations": [
+        "Does not claim that dynamic executable discovery guarantees DOM compatibility",
+        "Validates native home detection, hero, and suggestion cards",
+        "Rechecks both home and normal-task layouts"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "把刚做好的 ocean-calm 主题导出成一个可以发给 Windows 用户直接导入的 .codex-theme 文件，不要依赖我本机的图片路径。",
+      "expected_output": "Validates the theme and uses export-theme.mjs to create a self-contained portable package with embedded CSS and artwork.",
+      "files": [],
+      "expectations": [
+        "Uses scripts/export-theme.mjs with theme ocean-calm and an explicit .codex-theme output path",
+        "Produces a single package containing the normalized manifest, CSS, and Base64 artwork",
+        "Does not leave absolute source-machine asset paths in the portable manifest"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "我不想一直保留皮肤。帮我在 Mac 上关闭当前 Codex 皮肤，并恢复安装前的基础主题配置。",
+      "expected_output": "Uses the restore script, removes live injection, restores saved base theme settings, and does not touch Codex threads or authentication.",
+      "files": [],
+      "expectations": [
+        "Uses scripts/restore-skin.sh with --restore-base-theme when the user asks for base theme restore",
+        "Explains that --uninstall removes generated launch shortcuts",
+        "Does not delete user threads, credentials, or unrelated Codex config"
+      ]
+    }
+  ]
+}

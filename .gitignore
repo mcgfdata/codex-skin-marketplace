@@ -1,0 +1,5 @@
+.DS_Store
+*.tgz
+node_modules/
+plugins/*/assets/source/
+plugins/*/.local-trash/

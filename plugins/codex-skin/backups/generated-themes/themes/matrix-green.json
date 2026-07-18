@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "matrix-green",
+  "displayName": "Matrix Green",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Matrix Green",
+    "brandSubtitle": "终端感绿色主题",
+    "signature": "terminal mode",
+    "tagline": "高识别度绿色强调，适合偏终端风格的工作流。",
+    "projectPrefix": "Matrix · ",
+    "projectLabel": "选择项目",
+    "ribbon": ">"
+  },
+  "baseTheme": {
+    "mode": "dark",
+    "codeTheme": "codex",
+    "accent": "#19F27A",
+    "contrast": 86,
+    "ink": "#D6FFE5",
+    "surface": "#04130B",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#19F27A",
+      "diffRemoved": "#FF5C7A",
+      "skill": "#85FFB7"
+    }
+  }
+}

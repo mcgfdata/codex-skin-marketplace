@@ -1,0 +1,111 @@
+:root.codex-skin[data-codex-skin-theme="salary-cat"] {
+  color-scheme: light !important;
+  --skin-bg: #fff4df;
+  --skin-panel: #fffaf0;
+  --skin-panel-alt: #f5dfb7;
+  --skin-accent: #c9852b;
+  --skin-accent-alt: #e6ad4f;
+  --skin-secondary: #8f6a3d;
+  --skin-highlight: #ffe0a8;
+  --skin-text: #4b3520;
+  --skin-muted: #8c7154;
+  --skin-line: rgba(201, 133, 43, .26);
+  --color-token-foreground: var(--skin-text);
+  --color-token-description-foreground: color-mix(in srgb, var(--skin-muted) 84%, transparent);
+  --color-token-disabled-foreground: color-mix(in srgb, var(--skin-muted) 56%, transparent);
+  --color-token-input-foreground: var(--skin-text);
+  --color-token-input-placeholder-foreground: color-mix(in srgb, var(--skin-muted) 62%, transparent);
+  --color-token-input-background: color-mix(in srgb, var(--skin-panel) 94%, transparent);
+  --color-token-editor-foreground: var(--skin-text);
+  --color-token-editor-background: var(--skin-bg);
+  --color-token-terminal-foreground: var(--skin-text);
+  --color-token-terminal-background: var(--skin-bg);
+  --color-token-dropdown-foreground: var(--skin-text);
+  --color-token-dropdown-background: var(--skin-panel);
+  --color-token-menu-background: var(--skin-panel);
+  --color-token-text-code-block-background: color-mix(in srgb, var(--skin-panel-alt) 88%, transparent);
+  --color-token-badge-background: color-mix(in srgb, var(--skin-accent) 18%, transparent);
+  --color-token-list-hover-background: color-mix(in srgb, var(--skin-accent) 16%, transparent);
+  --color-token-list-active-selection-background: color-mix(in srgb, var(--skin-accent) 24%, transparent);
+  --color-token-toolbar-hover-background: color-mix(in srgb, var(--skin-accent) 15%, transparent);
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] body {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--skin-panel) 94%, transparent) 0%, color-mix(in srgb, var(--skin-panel) 70%, transparent) 42%, color-mix(in srgb, var(--skin-bg) 22%, transparent) 100%),
+    var(--dream-art) !important;
+  background-size: cover !important;
+  background-position: center right !important;
+  background-attachment: fixed !important;
+  color: var(--skin-text) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Microsoft YaHei UI", system-ui, sans-serif !important;
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] aside.app-shell-left-panel {
+  background: color-mix(in srgb, var(--skin-panel) 92%, transparent) !important;
+  border-right: 1px solid var(--skin-line) !important;
+  color: var(--skin-text) !important;
+  backdrop-filter: blur(18px) saturate(1.15) !important;
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] main.main-surface {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--skin-panel) 88%, transparent), color-mix(in srgb, var(--skin-bg) 36%, transparent)),
+    var(--dream-art) !important;
+  background-size: cover !important;
+  background-position: center right !important;
+  border-left: 1px solid var(--skin-line) !important;
+  overflow: hidden !important;
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] main.main-surface > header.app-header-tint,
+html.codex-skin[data-codex-skin-theme="salary-cat"] .composer-surface-chrome,
+html.codex-skin[data-codex-skin-theme="salary-cat"] textarea,
+html.codex-skin[data-codex-skin-theme="salary-cat"] [contenteditable="true"] {
+  background: color-mix(in srgb, var(--skin-panel) 88%, transparent) !important;
+  border-color: var(--skin-line) !important;
+  color: var(--skin-text) !important;
+  backdrop-filter: blur(16px) saturate(1.1) !important;
+}
+
+html.codex-skin[data-codex-skin-theme="salary-cat"] button:hover,
+html.codex-skin[data-codex-skin-theme="salary-cat"] [aria-current="page"] {
+  background: color-mix(in srgb, var(--skin-accent) 16%, transparent) !important;
+}
+
+#codex-skin-chrome {
+  position: fixed;
+  z-index: 31;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+#codex-skin-chrome .dream-brand,
+#codex-skin-chrome .dream-signature {
+  position: absolute;
+  display: none;
+  color: var(--skin-accent);
+  text-shadow: 0 1px 12px color-mix(in srgb, var(--skin-panel) 60%, transparent);
+}
+
+#codex-skin-chrome.dream-home-shell .dream-brand {
+  left: 24px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#codex-skin-chrome.dream-home-shell .dream-signature {
+  right: 88px;
+  top: 10px;
+  display: block;
+  color: var(--skin-secondary);
+  font-weight: 650;
+}
+
+#codex-skin-chrome .dream-brand b { display: block; font-size: 14px; letter-spacing: 0; }
+#codex-skin-chrome .dream-brand small { display: block; color: var(--skin-muted); font-size: 10px; letter-spacing: 0; }
+#codex-skin-chrome .dream-sparkles,
+#codex-skin-chrome .dream-polaroid,
+#codex-skin-chrome .dream-ribbon { display: none; }

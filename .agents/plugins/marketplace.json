@@ -1,0 +1,20 @@
+{
+  "name": "codex-skin-marketplace",
+  "interface": {
+    "displayName": "Codex Skin Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "codex-skin",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex-skin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

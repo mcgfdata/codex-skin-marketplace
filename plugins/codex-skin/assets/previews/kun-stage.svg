@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#05070d"/>
+      <stop offset="0.55" stop-color="#101626"/>
+      <stop offset="1" stop-color="#23170d"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#141822"/>
+      <stop offset="0.52" stop-color="#2b2630"/>
+      <stop offset="1" stop-color="#a47a43"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#d7b06a" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="680" fill="url(#bg)"/>
+  <rect x="18" y="18" width="220" height="644" rx="22" fill="#0b0f16" stroke="#3d3323"/>
+  <text x="42" y="78" font-family="Inter, Arial" font-size="31" font-weight="800" fill="#f6d59a">Codex ✦</text>
+  <g font-family="Inter, Arial" font-size="17" fill="#d9c3a0">
+    <text x="46" y="138">★ 新建任务</text>
+    <text x="46" y="188">▣ 技能</text>
+    <text x="46" y="238">♫ 舞台计划</text>
+    <text x="46" y="288">◇ 项目宇宙</text>
+    <text x="46" y="338">♡ 灵感收藏</text>
+  </g>
+  <rect x="256" y="18" width="926" height="644" rx="24" fill="#0c1018" stroke="#4f412c"/>
+  <rect x="286" y="56" width="866" height="238" rx="28" fill="url(#hero)" filter="url(#glow)"/>
+  <path d="M302 238 C452 150, 610 312, 778 164 S1050 206, 1138 110" fill="none" stroke="#d7b06a" stroke-width="3" opacity=".55"/>
+  <circle cx="1000" cy="166" r="118" fill="#f5cc86" opacity=".12"/>
+  <circle cx="1038" cy="168" r="78" fill="#f7d390" opacity=".16"/>
+  <text x="326" y="126" font-family="Inter, Arial" font-size="25" fill="#f2d49c">KUN 舞台限定版 ✦</text>
+  <text x="326" y="202" font-family="Inter, Arial" font-size="45" font-weight="900" fill="#fff0c8">我们一起创造什么？</text>
+  <text x="326" y="248" font-family="Inter, Arial" font-size="22" fill="#d8c29b">与 KUN 同频，用代码点亮舞台 ⚡</text>
+  <text x="888" y="104" font-family="Georgia, serif" font-size="36" font-style="italic" fill="#f6d59a">Keep Running</text>
+  <g filter="url(#glow)">
+    <rect x="310" y="330" width="190" height="132" rx="22" fill="#151922" stroke="#6c5a3f"/>
+    <rect x="526" y="330" width="190" height="132" rx="22" fill="#151922" stroke="#6c5a3f"/>
+    <rect x="742" y="330" width="190" height="132" rx="22" fill="#151922" stroke="#6c5a3f"/>
+    <rect x="958" y="330" width="170" height="132" rx="22" fill="#151922" stroke="#6c5a3f"/>
+  </g>
+  <g font-family="Inter, Arial" text-anchor="middle" fill="#f2d49c">
+    <text x="405" y="393" font-size="34">&lt;/&gt;</text><text x="405" y="433" font-size="18">探索代码</text>
+    <text x="621" y="393" font-size="34">✦</text><text x="621" y="433" font-size="18">构建工具</text>
+    <text x="837" y="393" font-size="34">☑</text><text x="837" y="433" font-size="18">审查修改</text>
+    <text x="1043" y="393" font-size="34">⚒</text><text x="1043" y="433" font-size="18">修复失败</text>
+  </g>
+  <rect x="310" y="510" width="818" height="92" rx="22" fill="#111722" stroke="#705d42"/>
+  <path d="M590 560 C650 528, 716 592, 778 554 S900 566, 1010 530" fill="none" stroke="#d7b06a" stroke-width="2" opacity=".5"/>
+  <text x="344" y="563" font-family="Inter, Arial" font-size="22" fill="#d6c4a5">随心输入，让 KUN 陪你一起写代码吧...</text>
+  <circle cx="1080" cy="556" r="24" fill="#7c6cff"/><text x="1080" y="565" text-anchor="middle" font-family="Arial" font-size="24" fill="#fff">↑</text>
+</svg>

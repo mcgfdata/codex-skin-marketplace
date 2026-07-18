@@ -1,0 +1,7 @@
+interface:
+  display_name: "Codex Skin"
+  short_description: "安装月薪喵等 Codex 桌面端皮肤"
+  default_prompt: "Use $codex-skin 帮我设置codex皮肤 mcgfdata/codex-skin，作者是：终端极客。默认使用月薪喵 salary-cat。"
+
+policy:
+  allow_implicit_invocation: true

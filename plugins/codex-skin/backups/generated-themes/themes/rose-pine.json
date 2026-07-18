@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "rose-pine",
+  "displayName": "Rose Pine",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Rose Pine",
+    "brandSubtitle": "柔和玫瑰松木主题",
+    "signature": "quiet warm",
+    "tagline": "暗色里保留温度，适合写作、整理和调试。",
+    "projectPrefix": "Rose Pine · ",
+    "projectLabel": "选择项目",
+    "ribbon": "R"
+  },
+  "baseTheme": {
+    "mode": "dark",
+    "codeTheme": "codex",
+    "accent": "#EBBCBA",
+    "contrast": 74,
+    "ink": "#E0DEF4",
+    "surface": "#191724",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#31748F",
+      "diffRemoved": "#EB6F92",
+      "skill": "#C4A7E7"
+    }
+  }
+}

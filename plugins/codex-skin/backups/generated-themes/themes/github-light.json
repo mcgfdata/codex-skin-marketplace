@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "github-light",
+  "displayName": "GitHub Light",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "GitHub Light",
+    "brandSubtitle": "清爽浅色工程主题",
+    "signature": "clean review",
+    "tagline": "熟悉的浅色工作台，适合代码审查和文档整理。",
+    "projectPrefix": "GitHub · ",
+    "projectLabel": "选择项目",
+    "ribbon": "G"
+  },
+  "baseTheme": {
+    "mode": "light",
+    "codeTheme": "codex",
+    "accent": "#0969DA",
+    "contrast": 72,
+    "ink": "#24292F",
+    "surface": "#F6F8FA",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#1A7F37",
+      "diffRemoved": "#CF222E",
+      "skill": "#0969DA"
+    }
+  }
+}

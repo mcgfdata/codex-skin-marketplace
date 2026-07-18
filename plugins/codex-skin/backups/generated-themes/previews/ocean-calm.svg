@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Ocean Calm Codex skin preview">
+  <rect width="640" height="360" fill="#eef8fb"/>
+  <rect x="22" y="22" width="132" height="316" rx="10" fill="#ffffff" stroke="#0f86a5" stroke-opacity=".24"/>
+  <rect x="174" y="22" width="444" height="316" rx="12" fill="#ffffff" stroke="#0f86a5" stroke-opacity=".24"/>
+  <path d="M404 82c42-32 84-32 126 0 22 17 44 24 68 18" fill="none" stroke="#22a699" stroke-width="16" stroke-linecap="round" opacity=".24"/>
+  <text x="190" y="124" fill="#15313d" font-family="Arial, sans-serif" font-size="28" font-weight="700">Ocean Calm</text>
+  <text x="190" y="154" fill="#466b78" font-family="Arial, sans-serif" font-size="15">清爽海洋浅色主题</text>
+  <rect x="190" y="192" width="390" height="74" rx="10" fill="#d8eef4"/>
+  <rect x="210" y="216" width="170" height="10" rx="5" fill="#0f86a5"/>
+  <rect x="210" y="240" width="250" height="9" rx="4" fill="#22a699" opacity=".75"/>
+  <rect x="42" y="54" width="82" height="10" rx="5" fill="#0f86a5"/>
+  <rect x="42" y="96" width="94" height="10" rx="5" fill="#15313d" opacity=".72"/>
+  <rect x="42" y="124" width="62" height="10" rx="5" fill="#15313d" opacity=".45"/>
+</svg>

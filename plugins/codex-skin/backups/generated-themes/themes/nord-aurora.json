@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "nord-aurora",
+  "displayName": "Nord Aurora",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Nord Aurora",
+    "brandSubtitle": "冷静蓝灰主题",
+    "signature": "arctic calm",
+    "tagline": "清冷、克制、适合专注阅读和审查代码。",
+    "projectPrefix": "Nord · ",
+    "projectLabel": "选择项目",
+    "ribbon": "N"
+  },
+  "baseTheme": {
+    "mode": "dark",
+    "codeTheme": "codex",
+    "accent": "#88C0D0",
+    "contrast": 76,
+    "ink": "#ECEFF4",
+    "surface": "#2E3440",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#A3BE8C",
+      "diffRemoved": "#BF616A",
+      "skill": "#88C0D0"
+    }
+  }
+}

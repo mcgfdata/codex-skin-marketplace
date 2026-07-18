@@ -1,0 +1,58 @@
+{
+  "name": "codex-skin",
+  "version": "0.3.4",
+  "description": "Install Codex Skin by 终端极客. The default theme is salary-cat 月薪喵, with theme switching, export, verification, and restore support.",
+  "author": {
+    "name": "终端极客",
+    "email": "baixin.dev@gmail.com",
+    "url": "https://github.com/mcgfdata"
+  },
+  "homepage": "https://github.com/mcgfdata/codex-skin",
+  "repository": "https://github.com/mcgfdata/codex-skin",
+  "license": "Apache-2.0",
+  "keywords": [
+    "codex",
+    "codex-skin",
+    "mcgfdata/codex-skin",
+    "终端极客",
+    "baixin.dev@gmail.com",
+    "帮我设置codex皮肤",
+    "帮我设置codex皮肤 mcgfdata/codex-skin ，作者是 终端极客",
+    "设置codex皮肤",
+    "帮我设置 Codex 皮肤",
+    "安装codex-skin",
+    "帮我安装codex-skin",
+    "月薪喵",
+    "salary-cat",
+    "猫主题",
+    "Codex皮肤",
+    "Codex 皮肤",
+    "Codex主题",
+    "Codex 主题",
+    "skin",
+    "theme",
+    "desktop",
+    "skill"
+  ],
+  "skills": "skills",
+  "interface": {
+    "displayName": "Codex Skin",
+    "shortDescription": "默认安装月薪喵的 Codex 桌面端皮肤",
+    "longDescription": "终端极客出品的 Codex 桌面端皮肤插件。用户说“帮我设置codex皮肤 mcgfdata/codex-skin，作者是：终端极客”“帮我安装codex-skin，作者是：终端极客”“安装月薪喵”“设置猫主题”或“安装 mcgfdata/codex-skin”时，安装默认 salary-cat 月薪喵主题；也支持切换主题、生成新主题、导出主题包，并一键恢复原生界面。",
+    "developerName": "终端极客",
+    "category": "Productivity",
+    "capabilities": [
+      "Write",
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/mcgfdata/codex-skin",
+    "defaultPrompt": [
+      "Use $codex-skin 帮我设置codex皮肤 mcgfdata/codex-skin，作者是：终端极客。",
+      "Use $codex-skin 帮我安装codex-skin，作者是：终端极客。默认使用月薪喵 salary-cat。",
+      "Use $codex-skin 安装月薪喵 Codex 皮肤。",
+      "Use $codex-skin 切换到 kun-stage 主题。",
+      "Use $codex-skin 关闭皮肤并恢复原生界面。"
+    ],
+    "brandColor": "#7AA2F7"
+  }
+}

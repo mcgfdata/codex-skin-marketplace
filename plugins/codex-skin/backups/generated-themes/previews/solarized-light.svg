@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Solarized Light Codex skin preview">
+  <rect width="640" height="360" fill="#fdf6e3"/>
+  <rect x="22" y="22" width="132" height="316" rx="10" fill="#fffaf0" stroke="#268bd2" stroke-opacity=".24"/>
+  <rect x="174" y="22" width="444" height="316" rx="12" fill="#fffaf0" stroke="#268bd2" stroke-opacity=".24"/>
+  <circle cx="544" cy="84" r="70" fill="#b58900" opacity=".16"/>
+  <text x="190" y="124" fill="#073642" font-family="Arial, sans-serif" font-size="28" font-weight="700">Solarized Light</text>
+  <text x="190" y="154" fill="#586e75" font-family="Arial, sans-serif" font-size="15">暖色低眩光浅色主题</text>
+  <rect x="190" y="192" width="390" height="74" rx="10" fill="#eee8d5"/>
+  <rect x="210" y="216" width="170" height="10" rx="5" fill="#268bd2"/>
+  <rect x="210" y="240" width="250" height="9" rx="4" fill="#b58900" opacity=".75"/>
+  <rect x="42" y="54" width="82" height="10" rx="5" fill="#268bd2"/>
+  <rect x="42" y="96" width="94" height="10" rx="5" fill="#073642" opacity=".72"/>
+  <rect x="42" y="124" width="62" height="10" rx="5" fill="#073642" opacity=".45"/>
+</svg>

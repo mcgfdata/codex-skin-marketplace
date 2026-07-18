@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "ocean-calm",
+  "displayName": "Ocean Calm",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Ocean Calm",
+    "brandSubtitle": "清爽海洋浅色主题",
+    "signature": "clear water",
+    "tagline": "蓝绿浅色界面，适合轻量、干净的日常使用。",
+    "projectPrefix": "Ocean · ",
+    "projectLabel": "选择项目",
+    "ribbon": "O"
+  },
+  "baseTheme": {
+    "mode": "light",
+    "codeTheme": "codex",
+    "accent": "#0F86A5",
+    "contrast": 68,
+    "ink": "#15313D",
+    "surface": "#EEF8FB",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#22A699",
+      "diffRemoved": "#D14B5A",
+      "skill": "#0F86A5"
+    }
+  }
+}

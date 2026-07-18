@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Rose Pine Codex skin preview">
+  <rect width="640" height="360" fill="#191724"/>
+  <rect x="22" y="22" width="132" height="316" rx="10" fill="#1f1d2e" stroke="#ebbcba" stroke-opacity=".35"/>
+  <rect x="174" y="22" width="444" height="316" rx="12" fill="#1f1d2e" stroke="#ebbcba" stroke-opacity=".35"/>
+  <circle cx="548" cy="86" r="74" fill="#c4a7e7" opacity=".18"/>
+  <text x="190" y="124" fill="#e0def4" font-family="Arial, sans-serif" font-size="28" font-weight="700">Rose Pine</text>
+  <text x="190" y="154" fill="#908caa" font-family="Arial, sans-serif" font-size="15">柔和玫瑰松木主题</text>
+  <rect x="190" y="192" width="390" height="74" rx="10" fill="#26233a"/>
+  <rect x="210" y="216" width="170" height="10" rx="5" fill="#ebbcba"/>
+  <rect x="210" y="240" width="250" height="9" rx="4" fill="#c4a7e7" opacity=".75"/>
+  <rect x="42" y="54" width="82" height="10" rx="5" fill="#ebbcba"/>
+  <rect x="42" y="96" width="94" height="10" rx="5" fill="#e0def4" opacity=".72"/>
+  <rect x="42" y="124" width="62" height="10" rx="5" fill="#e0def4" opacity=".45"/>
+</svg>

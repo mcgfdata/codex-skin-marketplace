@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Catppuccin Mocha Codex skin preview">
+  <rect width="640" height="360" fill="#1e1e2e"/>
+  <rect x="22" y="22" width="132" height="316" rx="10" fill="#181825" stroke="#cba6f7" stroke-opacity=".35"/>
+  <rect x="174" y="22" width="444" height="316" rx="12" fill="#181825" stroke="#cba6f7" stroke-opacity=".35"/>
+  <circle cx="540" cy="88" r="80" fill="#f5c2e7" opacity=".18"/>
+  <text x="190" y="124" fill="#cdd6f4" font-family="Arial, sans-serif" font-size="28" font-weight="700">Catppuccin Mocha</text>
+  <text x="190" y="154" fill="#a6adc8" font-family="Arial, sans-serif" font-size="15">柔和粉彩深色主题</text>
+  <rect x="190" y="192" width="390" height="74" rx="10" fill="#313244"/>
+  <rect x="210" y="216" width="170" height="10" rx="5" fill="#cba6f7"/>
+  <rect x="210" y="240" width="250" height="9" rx="4" fill="#f5c2e7" opacity=".75"/>
+  <rect x="42" y="54" width="82" height="10" rx="5" fill="#cba6f7"/>
+  <rect x="42" y="96" width="94" height="10" rx="5" fill="#cdd6f4" opacity=".72"/>
+  <rect x="42" y="124" width="62" height="10" rx="5" fill="#cdd6f4" opacity=".45"/>
+</svg>

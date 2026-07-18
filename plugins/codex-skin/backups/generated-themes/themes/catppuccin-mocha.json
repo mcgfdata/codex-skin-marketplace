@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "catppuccin-mocha",
+  "displayName": "Catppuccin Mocha",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Catppuccin Mocha",
+    "brandSubtitle": "柔和粉彩深色主题",
+    "signature": "pastel focus",
+    "tagline": "低噪声的深色界面，适合长时间编码。",
+    "projectPrefix": "Mocha · ",
+    "projectLabel": "选择项目",
+    "ribbon": "M"
+  },
+  "baseTheme": {
+    "mode": "dark",
+    "codeTheme": "codex",
+    "accent": "#CBA6F7",
+    "contrast": 78,
+    "ink": "#CDD6F4",
+    "surface": "#1E1E2E",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#A6E3A1",
+      "diffRemoved": "#F38BA8",
+      "skill": "#CBA6F7"
+    }
+  }
+}

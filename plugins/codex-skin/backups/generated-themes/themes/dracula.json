@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "dracula",
+  "displayName": "Dracula",
+  "version": "1.0.0",
+  "css": "palette.css",
+  "copy": {
+    "brandTitle": "Dracula",
+    "brandSubtitle": "高对比深色主题",
+    "signature": "dark mode",
+    "tagline": "让代码保持清晰，把注意力留给任务。",
+    "projectPrefix": "Dracula · ",
+    "projectLabel": "选择项目",
+    "ribbon": "D"
+  },
+  "baseTheme": {
+    "mode": "dark",
+    "codeTheme": "codex",
+    "accent": "#BD93F9",
+    "contrast": 82,
+    "ink": "#F8F8F2",
+    "surface": "#282A36",
+    "opaqueWindows": true,
+    "semanticColors": {
+      "diffAdded": "#50FA7B",
+      "diffRemoved": "#FF79C6",
+      "skill": "#BD93F9"
+    }
+  }
+}

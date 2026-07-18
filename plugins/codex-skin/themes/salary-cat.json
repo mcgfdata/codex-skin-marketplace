@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "salary-cat",
+  "displayName": "Codex 月薪喵",
+  "version": "1.0.0",
+  "css": "salary-cat.css",
+  "art": "../assets/imported/salary-cat/salary-cat-hero.gif",
+  "copy": {
+    "brandTitle": "Codex 月薪喵",
+    "brandSubtitle": "codex-skin-builder 参考主题",
+    "signature": "月薪喵 · 今日营业",
+    "tagline": "月薪喵打工主题，包含 12 帧循环 GIF、原生功能卡和可恢复 CDP 注入。",
+    "projectPrefix": "选择项目 · ",
+    "projectLabel": "选择项目",
+    "ribbon": "✦"
+  },
+  "baseTheme": {
+    "mode": "light",
+    "codeTheme": "codex",
+      "accent": "#C9852B",
+    "contrast": 70,
+      "ink": "#4B3520",
+      "surface": "#FFF4DF",
+    "opaqueWindows": true,
+    "semanticColors": {
+        "diffAdded": "#D9E6B3",
+        "diffRemoved": "#F4C28F",
+        "skill": "#C9852B"
+    }
+  },
+  "importSource": {
+    "type": "builder",
+    "originalId": "codex-monthly-salary-cat-skin",
+    "note": "Converted by scripts/import-external-theme.mjs. Review asset rights before redistribution."
+  }
+}
