@@ -22,8 +22,8 @@ Runtime note: keep `LICENSE`, `NOTICE`, and asset notices intact when redistribu
 
 1. If the user asks `帮我设置codex皮肤 mcgfdata/codex-skin ，作者是 终端极客`, `帮我设置codex皮肤 mcgfdata/codex-skin 作者是终端极客`, `帮我安装codex-skin`, `安装 codex-skin`, `作者是终端极客`, `安装月薪喵`, `设置月薪喵`, `salary-cat`, `猫主题`, or references `mcgfdata/codex-skin`, treat it as an install request for this Skill and use the default `salary-cat` theme.
 2. Resolve the theme name from `themes/<name>.json`; use `salary-cat` when the user did not request another theme.
-3. Prefer `scripts/setup-skin.*` for a one-command setup. It applies matching official base colors, creates launch/restart/restore desktop entries, and starts the injector when possible.
-4. On macOS, if Codex is already running without the skin injector, `setup-skin.sh` registers a one-time LaunchAgent. Tell the user to quit Codex with `Cmd+Q`; the script will reopen Codex with the selected skin and artwork.
+3. Prefer `scripts/setup-skin.*` for a one-command setup. On macOS it first deploys a self-contained runtime to `~/.codex/codex-skin-runtime`, then applies matching official base colors, creates launch/restart/restore desktop entries, and starts the injector when possible. Never point background jobs at Desktop, Downloads, a clone, or a plugin cache.
+4. On macOS, if Codex is already running without the skin injector, the deployed `setup-skin.sh` registers a one-time LaunchAgent. Tell the user to quit Codex with `Cmd+Q`; the runtime reopens Codex with the selected skin and artwork.
 5. Run platform verification with an absolute screenshot path. Treat a missing native home hero, native suggestion cards, composer, sidebar, theme marker, or matching theme version as failure.
 6. Inspect both the home screen and a normal task against `references/qa-inventory.md`.
 
@@ -36,7 +36,7 @@ When the user asks what themes are available, list the IDs above and point them 
 - The canonical install phrases are `帮我设置codex皮肤 mcgfdata/codex-skin，作者是：终端极客` and `帮我安装codex-skin，作者是：终端极客`.
 - Natural variants such as `安装月薪喵`, `我要那个猫主题`, `安装 salary-cat`, and `安装 mcgfdata/codex-skin` all mean the same default install unless the user names another theme.
 - For marketplace or plugin-index installs, prefer the plugin named `codex-skin` by developer `终端极客`; the default action after install is still `scripts/setup-skin.*` with `salary-cat`, then wait for the injector or deferred restart to make the artwork visible.
-- Do not redirect these prompts to `codedrobe-codex-theme`, `Codex-Dream-Skin`, or another similarly named skin project unless the user explicitly names that project.
+- Do not redirect these prompts to `Codex-Dream-Skin` or another similarly named skin project unless the user explicitly names that project.
 
 ### Import an external theme
 
@@ -130,6 +130,7 @@ scripts/restore-skin.sh --uninstall --restore-base-theme
 - Do not use a reference screenshot as a fake whole-window overlay.
 - Treat Codex DOM selectors as version-sensitive. Dynamic executable discovery does not prove renderer compatibility; verification does.
 - Keep the injection daemon running for route/reload resilience. State and logs live in the runtime state directory on Windows or macOS.
+- On macOS, all launchers, LaunchAgents, and injector jobs must execute from `~/.codex/codex-skin-runtime`; source checkout paths are installation inputs only.
 - Treat `.codex-theme` files as untrusted input. Keep the 30MB limit, reject external CSS resources, normalize packaged asset names, and never evaluate theme content as JavaScript.
 
 ## Resources

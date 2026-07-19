@@ -143,12 +143,12 @@ Use $codex-skin 关闭皮肤，恢复原生界面。
 本地开发时可以用插件校验脚本检查：
 
 ```bash
-python3 /Users/mobvista/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py /path/to/codex-skin
+python3 "$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py" /path/to/codex-skin
 ```
 
 ## 使用皮肤
 
-最省事的方式是执行一次 `setup-skin`。它会安装皮肤配置，在桌面生成启动、重启、恢复三个入口，并尽量直接启动带图片注入的 Codex。
+最省事的方式是执行一次 `setup-skin`。macOS 会先把完整运行时和月薪喵 GIF 原子部署到 `~/.codex/codex-skin-runtime`，再安装皮肤配置并在桌面生成启动、重启、恢复三个入口。后续运行不依赖克隆目录、下载目录或插件缓存。
 
 macOS：
 
@@ -170,7 +170,7 @@ scripts\setup-skin.ps1
 - `Codex Skin - Restart.command`：关闭当前 Codex，再用皮肤模式打开。
 - `Codex Skin - Restore.command`：移除当前皮肤。
 
-macOS 上如果 Codex 已经用普通方式打开，`setup-skin.sh` 会注册一个一次性后台任务。你只需要保存当前工作并 `Cmd+Q` 退出 Codex，它会自动重新打开带月薪喵图片的 Codex。之后日常使用时，双击 `Codex Skin.command` 即可。
+macOS 上如果 Codex 已经用普通方式打开，部署后的 `setup-skin.sh` 会注册一个一次性后台任务。你只需要保存当前工作并 `Cmd+Q` 退出 Codex，它会从 `~/.codex/codex-skin-runtime` 自动重新打开带月薪喵图片的 Codex。之后日常使用时，双击 `Codex Skin.command` 即可。
 
 如果不想等自动重启，也可以保存当前工作后双击 `Codex Skin - Restart.command`。
 

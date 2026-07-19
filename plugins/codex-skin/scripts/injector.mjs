@@ -357,4 +357,12 @@ async function runWatch(options) {
 
 const options = parseArgs(process.argv.slice(2));
 if (options.mode === "watch") await runWatch(options);
-else await runOneShot(options);
+else {
+  const watchdog = setTimeout(() => {
+    console.error(`[codex-skin] ${options.mode} timed out after ${options.timeoutMs + 5000}ms`);
+    process.exit(3);
+  }, options.timeoutMs + 5000);
+  await runOneShot(options);
+  clearTimeout(watchdog);
+  process.exit(process.exitCode ?? 0);
+}

@@ -4,9 +4,11 @@
 
 - Windows launches the newest Store-installed `OpenAI.Codex` package executable at `<InstallLocation>\app\ChatGPT.exe`. Never persist a versioned WindowsApps path.
 - macOS launches the signed app with bundle id `com.openai.codex`, normally `/Applications/ChatGPT.app/Contents/MacOS/ChatGPT`. Also check `~/Applications` and Spotlight results for nonstandard installs.
+- macOS setup atomically deploys the complete runtime, including theme manifests and artwork, to `~/.codex/codex-skin-runtime`. Desktop launchers, deferred restart jobs, and the injector only execute files from this installed runtime so macOS privacy controls never need background access to Desktop or Downloads.
 - Both launchers pass `--remote-debugging-address=127.0.0.1` and `--remote-debugging-port=<port>` and inject through CDP.
 - The default port is `9335`; isolated tests may use another port plus a separate user-data directory.
 - The injector polls `app://` page targets and reinjects after document loads. In-page route changes use a debounced observer plus a five-second safety check.
+- The macOS watcher is submitted as an independent per-user `launchctl` job. It prefers the signed Node.js bundled with Codex and falls back to a user-installed Node.js only when needed.
 - A watcher PID is stopped only when its current command line still identifies this injector in watch mode. Never terminate an unrelated PID merely because it appears in a stale state file.
 - Watcher shutdown is bounded: request a graceful CDP disconnect first, then force-stop only the same verified injector PID if it remains alive.
 - If Codex is already running without the selected debugging port, close it or explicitly authorize `-RestartExisting` / `--restart-existing`.

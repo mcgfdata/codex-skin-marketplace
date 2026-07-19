@@ -3,12 +3,14 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILL_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-STATE_ROOT="$HOME/Library/Application Support/Codex Skin"
+. "$SCRIPT_DIR/common-macos.sh"
+STATE_ROOT="$CODEX_SKIN_STATE_ROOT"
 CONFIG_PATH="$HOME/.codex/config.toml"
 BACKUP_PATH="$STATE_ROOT/config.before-codex-skin.toml"
 PORT=9335
 THEME=salary-cat
 NO_SHORTCUTS=0
+NODE_BIN=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -19,10 +21,10 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-command -v node >/dev/null || { echo "Node.js is required." >&2; exit 1; }
+NODE_BIN="$(resolve_codex_node)" || { echo "Codex bundled Node.js or Node.js 20+ is required." >&2; exit 1; }
 [[ -f "$CONFIG_PATH" ]] || { echo "Codex config not found: $CONFIG_PATH" >&2; exit 1; }
 mkdir -p "$STATE_ROOT"
-node "$SCRIPT_DIR/theme-tool.mjs" apply \
+"$NODE_BIN" "$SCRIPT_DIR/theme-tool.mjs" apply \
   --theme "$THEME" --platform darwin --config "$CONFIG_PATH" --backup "$BACKUP_PATH"
 
 if [[ "$NO_SHORTCUTS" -eq 0 ]]; then

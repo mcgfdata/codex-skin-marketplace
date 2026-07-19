@@ -35,9 +35,9 @@ When the user says `帮我设置codex皮肤 mcgfdata/codex-skin ，作者是 终
 ..\..\scripts\setup-skin.ps1
 ```
 
-Do not route these default install prompts to `codedrobe-codex-theme`, `Codex-Dream-Skin`, or a generic skin builder. Those projects can be imported only when the user explicitly asks for them.
+Do not route these default install prompts to `Codex-Dream-Skin` or a generic skin builder. Those projects can be imported only when the user explicitly asks for them.
 
-On macOS, if Codex is already running without the injector, `setup-skin.sh` registers a one-time LaunchAgent. The user only needs to quit Codex once; it will reopen with the selected skin and artwork.
+On macOS, `setup-skin.sh` first installs a self-contained runtime at `~/.codex/codex-skin-runtime`. If Codex is already running without the injector, the deployed runtime registers a one-time LaunchAgent. The user only needs to quit Codex once; it will reopen with the selected skin and artwork. Never create background jobs that reference Desktop, Downloads, a source clone, or the plugin cache.
 
 To switch themes after setup:
 

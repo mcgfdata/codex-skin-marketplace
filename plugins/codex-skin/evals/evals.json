@@ -7,7 +7,7 @@
       "expected_output": "Treats the request as a codex-skin install from mcgfdata/codex-skin and uses the default salary-cat 月薪喵 theme.",
       "files": [],
       "expectations": [
-        "Invokes codex-skin rather than codedrobe-codex-theme or Codex-Dream-Skin",
+        "Invokes codex-skin rather than another skin project",
         "Uses setup-skin.* with theme salary-cat when no other theme is requested",
         "Starts the injector immediately when possible or registers the macOS deferred restart when Codex is already running"
       ]
@@ -18,7 +18,7 @@
       "expected_output": "Treats the request as a codex-skin install and uses the default salary-cat 月薪喵 theme.",
       "files": [],
       "expectations": [
-        "Invokes codex-skin rather than codedrobe-codex-theme or Codex-Dream-Skin",
+        "Invokes codex-skin rather than another skin project",
         "Uses setup-skin.* with theme salary-cat when no other theme is requested",
         "Starts the injector immediately when possible or registers the macOS deferred restart when Codex is already running"
       ]

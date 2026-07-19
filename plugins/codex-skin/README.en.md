@@ -136,12 +136,12 @@ After installing from a marketplace, users do not need to choose a theme. If no 
 For local development, validate the plugin manifest with:
 
 ```bash
-python3 /Users/mobvista/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py /path/to/codex-skin
+python3 "$HOME/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py" /path/to/codex-skin
 ```
 
 ## Use A Skin
 
-The easiest path is to run `setup-skin` once. It installs the skin settings, creates launch/restart/restore entries on the desktop, and starts the image injector when possible.
+The easiest path is to run `setup-skin` once. On macOS it atomically deploys the complete runtime and Salary Cat GIF to `~/.codex/codex-skin-runtime`, installs the skin settings, creates launch/restart/restore entries on the desktop, and starts the image injector when possible. Later launches do not depend on a clone, Downloads, Desktop, or the plugin cache.
 
 macOS:
 
@@ -163,7 +163,7 @@ After setup, the desktop contains:
 - `Codex Skin - Restart.command`: close the current Codex window and reopen it with the skin.
 - `Codex Skin - Restore.command`: remove the active skin.
 
-On macOS, if Codex is already running without the injector, `setup-skin.sh` registers a one-time background task. Save your current work and quit Codex with `Cmd+Q`; it will reopen with the 月薪喵 image skin.
+On macOS, if Codex is already running without the injector, the deployed `setup-skin.sh` registers a one-time background task. Save your current work and quit Codex with `Cmd+Q`; it will reopen from `~/.codex/codex-skin-runtime` with the 月薪喵 image skin.
 
 If you do not want to wait for the automatic restart, save your current work and use the restart launcher. You can also run it from the terminal:
 

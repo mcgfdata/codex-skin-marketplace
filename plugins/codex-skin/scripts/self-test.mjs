@@ -1,10 +1,14 @@
 import assert from "node:assert/strict";
+import { execFile } from "node:child_process";
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import vm from "node:vm";
+import { promisify } from "node:util";
 import { DEFAULT_THEME, applySettings, buildBaseThemeSettings, loadTheme, restoreSettings, skillRoot } from "./theme-lib.mjs";
 import { buildThemePackage } from "./theme-package.mjs";
+
+const execFileAsync = promisify(execFile);
 
 const theme = await loadTheme();
 assert.equal(DEFAULT_THEME, "salary-cat");
@@ -117,31 +121,66 @@ assert.ok(bundle.art?.base64.length > 0);
 assert.match(serialized, /"format": "codex-theme"/);
 
 const temp = await fs.mkdtemp(path.join(os.tmpdir(), "codex-skin-"));
-await fs.rm(temp, { recursive: true, force: true });
+const stagedRuntime = path.join(temp, "runtime");
+await execFileAsync("/bin/bash", [
+  "-c",
+  '. "$1"; deploy_codex_skin_runtime "$2" "$3"',
+  "_",
+  path.join(skillRoot, "scripts", "common-macos.sh"),
+  skillRoot,
+  stagedRuntime,
+]);
+const stagedManifest = JSON.parse(await fs.readFile(path.join(stagedRuntime, "themes", "salary-cat.json"), "utf8"));
+const stagedArt = await fs.stat(path.join(stagedRuntime, "assets", "imported", "salary-cat", "salary-cat-hero.gif"));
+assert.equal(stagedManifest.id, "salary-cat");
+assert.ok(stagedArt.size > 1_000_000, "staged salary-cat artwork should be complete");
+await assert.rejects(fs.access(path.join(stagedRuntime, ".git")));
 
-const [setupScript, startScript, restoreScript, injectorScript] = await Promise.all([
+const [commonScript, setupScript, startScript, restoreScript, injectorScript] = await Promise.all([
+  fs.readFile(path.join(skillRoot, "scripts", "common-macos.sh"), "utf8"),
   fs.readFile(path.join(skillRoot, "scripts", "setup-skin.sh"), "utf8"),
   fs.readFile(path.join(skillRoot, "scripts", "start-skin-core.sh"), "utf8"),
   fs.readFile(path.join(skillRoot, "scripts", "restore-skin-core.sh"), "utf8"),
   fs.readFile(path.join(skillRoot, "scripts", "injector.mjs"), "utf8"),
 ]);
+assert.match(commonScript, /\.codex\/codex-skin-runtime/);
+assert.match(commonScript, /assets\/imported\/salary-cat\/salary-cat-hero\.gif/);
+assert.match(commonScript, /rsync -a --delete/);
+assert.match(commonScript, /CFBundleIdentifier/);
+assert.match(commonScript, /node_is_supported/);
+assert.match(setupScript, /deploy_codex_skin_runtime/);
+assert.match(setupScript, /--in-place/);
+assert.match(setupScript, /--no-launch/);
 assert.match(setupScript, /ORIGINAL_PIDS=/);
 assert.match(setupScript, /original_codex_is_running/);
 assert.match(setupScript, /start-skin\.sh" --theme "\\\$THEME" --port "\\\$PORT" --restart-existing/);
 assert.match(setupScript, /trap cleanup_deferred_start EXIT/);
 assert.doesNotMatch(setupScript, /while \[ -n "\\\$\(main_pids\)" \]/);
-assert.match(startScript, /LaunchServices can route the request to an ordinary single-instance/);
+const launchFunction = startScript.slice(
+  startScript.indexOf("launch_codex_with_cdp()"),
+  startScript.indexOf("safe_stop_injector()"),
+);
+assert.match(startScript, /--user-data-dir=\$PROFILE_PATH/);
+assert.match(launchFunction, /launched_codex_is_running && return 0/);
+assert.doesNotMatch(launchFunction, /stop_running_codex/);
 assert.match(startScript, /stop_running_codex/);
 assert.match(startScript, /seq 1 170/);
 assert.match(startScript, /kill -KILL "\$pid"/);
+assert.match(startScript, /launchctl submit -l "\$CODEX_SKIN_INJECTOR_LABEL"/);
+assert.match(startScript, /resolve_codex_node/);
+assert.match(startScript, /s\.injectorPath \|\| \(s\.skillRoot/);
 assert.match(restoreScript, /cancel_deferred_start/);
 assert.match(restoreScript, /Codex Skin - Restart\.command/);
 assert.match(restoreScript, /kill -KILL "\$pid"/);
+assert.match(restoreScript, /s\.injectorPath \|\| \(s\.skillRoot/);
 assert.match(injectorScript, /forcedExitTimer = setTimeout\(\(\) => process\.exit\(0\), 1500\)/);
+assert.match(injectorScript, /options\.mode} timed out after/);
+assert.match(injectorScript, /process\.exit\(process\.exitCode \?\? 0\)/);
+await fs.rm(temp, { recursive: true, force: true });
 console.log(JSON.stringify({
   pass: true,
   theme: `${theme.id}@${theme.version}`,
   themes: themeIds,
   payloadBytes: Buffer.byteLength(payload),
-  checks: ["active Skill themes", "archived generated themes", "theme schema", "mac base colors", "appearance key deduplication", "config restore", "payload syntax", "portable theme export", "mac deferred restart", "mac deferred cleanup"],
+  checks: ["active Skill themes", "archived generated themes", "theme schema", "mac base colors", "appearance key deduplication", "config restore", "payload syntax", "portable theme export", "mac runtime deployment", "bundled salary-cat artwork", "mac deferred restart", "non-destructive app launch fallback", "launchctl injector", "mac deferred cleanup"],
 }, null, 2));

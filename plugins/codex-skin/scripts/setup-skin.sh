@@ -1,24 +1,38 @@
 #!/bin/bash
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
+SKILL_ROOT="$(cd "$SCRIPT_DIR/.." && pwd -P)"
+. "$SCRIPT_DIR/common-macos.sh"
 THEME="salary-cat"
 PORT="9335"
 DESKTOP_DIR="$HOME/Desktop"
-STATE_ROOT="$HOME/Library/Application Support/Codex Skin"
-DEFER_LABEL="com.mcgfdata.codex-skin.deferred-start"
+STATE_ROOT="$CODEX_SKIN_STATE_ROOT"
+DEFER_LABEL="$CODEX_SKIN_DEFER_LABEL"
 DEFER_SCRIPT="$STATE_ROOT/deferred-start.sh"
 DEFER_LOG="$STATE_ROOT/deferred-start.log"
 DEFER_PLIST="$HOME/Library/LaunchAgents/$DEFER_LABEL.plist"
 DEFER_COMPLETED_PLIST="$STATE_ROOT/deferred-start.completed.plist"
+IN_PLACE=0
+NO_LAUNCH=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --theme) THEME="$2"; shift 2 ;;
     --port) PORT="$2"; shift 2 ;;
+    --in-place) IN_PLACE=1; shift ;;
+    --no-launch) NO_LAUNCH=1; shift ;;
     *) echo "Unknown argument: $1" >&2; exit 2 ;;
   esac
 done
+
+if [[ "$IN_PLACE" -eq 0 && "$SKILL_ROOT" != "$CODEX_SKIN_RUNTIME_ROOT" ]]; then
+  deploy_codex_skin_runtime "$SKILL_ROOT" "$CODEX_SKIN_RUNTIME_ROOT"
+  echo "Codex Skin runtime installed at $CODEX_SKIN_RUNTIME_ROOT"
+  NEXT_ARGS=(--in-place --theme "$THEME" --port "$PORT")
+  [[ "$NO_LAUNCH" -eq 1 ]] && NEXT_ARGS+=(--no-launch)
+  exec "$CODEX_SKIN_RUNTIME_ROOT/scripts/setup-skin.sh" "${NEXT_ARGS[@]}"
+fi
 
 main_pids() {
   ps -axo pid=,command= | awk '/\/ChatGPT\.app\/Contents\/MacOS\/ChatGPT([[:space:]]|$)/ { print $1 }'
@@ -27,7 +41,7 @@ main_pids() {
 test_codex_debug_port() {
   local payload
   payload="$(curl --silent --show-error --fail --max-time 1 "http://127.0.0.1:$PORT/json/list" 2>/dev/null)" || return 1
-  printf '%s' "$payload" | node -e '
+  printf '%s' "$payload" | "$(resolve_codex_node)" -e '
     let data=""; process.stdin.on("data", c => data += c); process.stdin.on("end", () => {
       try { const rows=JSON.parse(data); process.exit(rows.some(x => x.type === "page" && String(x.url).startsWith("app://")) ? 0 : 1); }
       catch { process.exit(1); }
@@ -38,7 +52,7 @@ write_deferred_start() {
   local original_pids
   original_pids="$(main_pids | tr '\n' ' ' | sed 's/[[:space:]]*$//')"
   mkdir -p "$STATE_ROOT" "$HOME/Library/LaunchAgents"
-  launchctl bootout "gui/$(id -u)/$DEFER_LABEL" 2>/dev/null || true
+  launchctl remove "$DEFER_LABEL" 2>/dev/null || true
   launchctl bootout "gui/$(id -u)" "$DEFER_PLIST" 2>/dev/null || true
   cat > "$DEFER_SCRIPT" <<EOF
 #!/bin/bash
@@ -67,10 +81,7 @@ original_codex_is_running() {
 
 cleanup_deferred_start() {
   /bin/mv "\$PLIST" "\$COMPLETED_PLIST" 2>/dev/null || true
-  (
-    /bin/sleep 1
-    /bin/launchctl bootout "gui/\$(/usr/bin/id -u)/\$LABEL" 2>/dev/null || true
-  ) >/dev/null 2>&1 &
+  /bin/launchctl remove "\$LABEL" >/dev/null 2>&1 || true
 }
 
 trap cleanup_deferred_start EXIT
@@ -131,6 +142,11 @@ echo "Desktop launchers:"
 echo "  $DESKTOP_DIR/Codex Skin.command"
 echo "  $DESKTOP_DIR/Codex Skin - Restart.command"
 echo "  $DESKTOP_DIR/Codex Skin - Restore.command"
+
+if [[ "$NO_LAUNCH" -eq 1 ]]; then
+  echo "Codex Skin runtime is installed; launch was skipped."
+  exit 0
+fi
 
 if test_codex_debug_port; then
   "$SCRIPT_DIR/start-skin.sh" --theme "$THEME" --port "$PORT"
